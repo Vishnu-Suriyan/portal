@@ -1,139 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to Vishnu Guest Wi-Fi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishnu Guest Wi-Fi Portal</title>
+<style>
+/* ---------- Full-Screen Gradient Background ---------- */
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(-45deg, #1e3c72, #2a5298, #00c6ff, #0072ff);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  color: #fff;
+}
 
-  <style>
-    /* -------- Basic Styling -------- */
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      font-family: "Poppins", sans-serif;
-      color: #fff;
-    }
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    /* -------- Animated Background Circles -------- */
-    .bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-    .bg span {
-      position: absolute;
-      display: block;
-      width: 20vmin;
-      height: 20vmin;
-      background: rgba(255,255,255,0.15);
-      animation: float 25s linear infinite;
-      border-radius: 50%;
-      bottom: -150px;
-    }
-    .bg span:nth-child(1){ left:10%; animation-delay:0s; }
-    .bg span:nth-child(2){ left:30%; animation-delay:5s; width:15vmin; height:15vmin; }
-    .bg span:nth-child(3){ left:50%; animation-delay:10s; width:25vmin; height:25vmin; }
-    .bg span:nth-child(4){ left:70%; animation-delay:15s; width:10vmin; height:10vmin; }
-    .bg span:nth-child(5){ left:90%; animation-delay:20s; width:18vmin; height:18vmin; }
+/* ---------- Particle Canvas ---------- */
+#particles {
+  position: fixed;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
 
-    @keyframes float {
-      0%   { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-      50%  { opacity: 1; }
-      100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
-    }
+/* ---------- Glassmorphism Card ---------- */
+.card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  padding: 40px 50px;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(0,0,0,0.3);
+  animation: cardIn 2s ease forwards;
+  opacity: 0;
+}
 
-    /* -------- Main Card -------- */
-    .card {
-      position: relative;
-      z-index: 1;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(12px);
-      padding: 40px 60px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 0 40px rgba(0,0,0,0.3);
-      animation: fadeIn 1.5s ease-out;
-    }
+@keyframes cardIn {
+  0% { transform: translateY(-50px) scale(0.9); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to   { opacity: 1; transform: scale(1); }
-    }
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
 
-    .card h1 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
+p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #f0f0f0;
+}
 
-    .card p {
-      font-size: 1rem;
-      line-height: 1.6;
-      margin-bottom: 25px;
-      color: #f0f0f0;
-    }
+/* ---------- Terms List ---------- */
+.terms {
+  text-align: left;
+  margin-bottom: 25px;
+  background: rgba(255,255,255,0.05);
+  padding: 15px 20px;
+  border-radius: 15px;
+}
 
-    .terms {
-      font-size: 0.9rem;
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 10px;
-      text-align: left;
-      margin-bottom: 20px;
-    }
+.terms ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  color: #f0f0f0;
+  font-size: 0.9rem;
+}
 
-    .btn {
-      display: inline-block;
-      background: #00c6ff;
-      background: linear-gradient(90deg, #0072ff, #00c6ff);
-      color: #fff;
-      padding: 12px 35px;
-      font-size: 1rem;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: 0.3s;
-      animation: pulse 2s infinite;
-    }
+.terms li {
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInBullet 1s forwards;
+}
 
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 10px #00c6ff; }
-      50% { box-shadow: 0 0 25px #0072ff; }
-    }
+.terms li:nth-child(1){ animation-delay: 0.5s; }
+.terms li:nth-child(2){ animation-delay: 1s; }
+.terms li:nth-child(3){ animation-delay: 1.5s; }
+.terms li:nth-child(4){ animation-delay: 2s; }
+.terms li:nth-child(5){ animation-delay: 2.5s; }
 
-    .btn:hover {
-      transform: scale(1.05);
-    }
-  </style>
+@keyframes fadeInBullet {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ---------- Countdown Button ---------- */
+#countdown {
+  display: inline-block;
+  background: linear-gradient(90deg, #00f0ff, #0072ff);
+  padding: 12px 40px;
+  border-radius: 30px;
+  font-size: 1rem;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0,114,255,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: pulse 2s infinite;
+  user-select: none;
+}
+
+#countdown:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0,114,255,0.7);
+}
+
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 15px rgba(0,114,255,0.5); }
+  50% { box-shadow: 0 0 30px rgba(0,114,255,0.7); }
+}
+</style>
 </head>
 <body>
-  <div class="bg">
-    <span></span><span></span><span></span><span></span><span></span>
+<canvas id="particles"></canvas>
+
+<div class="card">
+  <h1>Welcome to Vishnu Guest Wi-Fi</h1>
+  <p>Enjoy fast and secure connectivity during your visit.</p>
+
+  <div class="terms">
+    <ul>
+      <li>This network is provided for guest access only.</li>
+      <li>Internet usage may be monitored for security purposes.</li>
+      <li>Please avoid accessing illegal or inappropriate content.</li>
+      <li>The network provider is not responsible for data loss or unauthorized access.</li>
+      <li>By connecting, you agree to comply with these terms.</li>
+    </ul>
   </div>
 
-  <div class="card">
-    <h1>Welcome to Vishnu Guest Wi-Fi</h1>
-    <p>Enjoy secure and fast connectivity during your visit.</p>
+  <div id="countdown">Connecting in 5</div>
+</div>
 
-    <div class="terms">
-      <strong>Terms of Use:</strong><br>
-      <ul>
-        <li>This network is provided for guest access only.</li>
-        <li>Internet usage may be monitored for security purposes.</li>
-        <li>Please avoid accessing illegal or inappropriate content.</li>
-        <li>The network provider is not responsible for data loss or unauthorized access.</li>
-        <li>By connecting, you agree to comply with these terms.</li>
-      </ul>
-    </div>
+<script>
+// ---------- Countdown Timer ----------
+let timer = 5; // seconds
+const countdownEl = document.getElementById('countdown');
 
-    <a href="https://www.google.com" class="btn">Connect to Internet</a>
-  </div>
+const interval = setInterval(() => {
+  timer--;
+  if(timer > 0){
+    countdownEl.textContent = `Connecting in ${timer}`;
+  } else {
+    clearInterval(interval);
+    countdownEl.textContent = "Connecting...";
+    window.location.href = "https://www.google.com"; // Replace with your URL
+  }
+}, 1000);
+
+// ---------- Particle Animation ----------
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+const particleCount = 120;
+
+for (let i = 0; i < particleCount; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 4 + 1,
+    speedX: Math.random() * 1 - 0.5,
+    speedY: Math.random() * 1 - 0.5,
+    color: `rgba(255,255,255,${Math.random()})`
+  });
+}
+
+function animate() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let i=0;i<particles.length;i++){
+    let p = particles[i];
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+    p.x += p.speedX;
+    p.y += p.speedY;
+    if(p.x<0||p.x>canvas.width) p.speedX *= -1;
+    if(p.y<0||p.y>canvas.height) p.speedY *= -1;
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
 </body>
 </html>
