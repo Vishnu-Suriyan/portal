@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Vishnu Guest Wi-Fi</title>
+
+  <style>
+    /* -------- Basic Styling -------- */
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      color: #fff;
+    }
+
+    /* -------- Animated Background Circles -------- */
+    .bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    .bg span {
+      position: absolute;
+      display: block;
+      width: 20vmin;
+      height: 20vmin;
+      background: rgba(255,255,255,0.15);
+      animation: float 25s linear infinite;
+      border-radius: 50%;
+      bottom: -150px;
+    }
+    .bg span:nth-child(1){ left:10%; animation-delay:0s; }
+    .bg span:nth-child(2){ left:30%; animation-delay:5s; width:15vmin; height:15vmin; }
+    .bg span:nth-child(3){ left:50%; animation-delay:10s; width:25vmin; height:25vmin; }
+    .bg span:nth-child(4){ left:70%; animation-delay:15s; width:10vmin; height:10vmin; }
+    .bg span:nth-child(5){ left:90%; animation-delay:20s; width:18vmin; height:18vmin; }
+
+    @keyframes float {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+      50%  { opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* -------- Main Card -------- */
+    .card {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      padding: 40px 60px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(0,0,0,0.3);
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .card h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      color: #f0f0f0;
+    }
+
+    .terms {
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #00c6ff;
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      color: #fff;
+      padding: 12px 35px;
+      font-size: 1rem;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 10px #00c6ff; }
+      50% { box-shadow: 0 0 25px #0072ff; }
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="card">
+    <h1>Welcome to Vishnu Guest Wi-Fi</h1>
+    <p>Enjoy secure and fast connectivity during your visit.</p>
+
+    <div class="terms">
+      <strong>Terms of Use:</strong><br>
+      <ul>
+        <li>This network is provided for guest access only.</li>
+        <li>Internet usage may be monitored for security purposes.</li>
+        <li>Please avoid accessing illegal or inappropriate content.</li>
+        <li>The network provider is not responsible for data loss or unauthorized access.</li>
+        <li>By connecting, you agree to comply with these terms.</li>
+      </ul>
+    </div>
+
+    <a href="https://www.google.com" class="btn">Connect to Internet</a>
+  </div>
+</body>
+</html>
